@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import AllProductFromCategory from '../../Componets/Shop/AllProductFromCategory';
-import { getRand } from '../../MyCodes/ed5';
+import { getRand, isDev } from '../../MyCodes/ed5';
 
 const Shop = ({ onPage }) => {
     const categories = ['Crystals1', 'Oils2', 'IDK3']
@@ -15,8 +15,9 @@ const Shop = ({ onPage }) => {
 
 
 
+
     async function fetchProuductsFromStripe() {
-        fetch('/.netlify/functions/FetchProducts', {
+        fetch(`${isDev() ? 'https://voidappx.netlify.app/' : '/.'}netlify/functions/FetchProducts`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
         }).then(res => {

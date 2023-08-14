@@ -24,7 +24,13 @@ export const notify = (notification, duration = 5000) => {
     }).showToast();
 };
 
-
+export const isDev = () => {
+    if (!process.env.NODE_ENV || process.env.NODE_ENV === 'development') {
+        return true
+    } else {
+        return false
+    }
+}
 export function handleInput5(key, value, stateSetter) {
     //const key = target.name
     // const value = target.value
