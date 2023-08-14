@@ -37,7 +37,7 @@ const TimesBar = memo(({ times }) => {
                             key={i}
                             className={cn(
                                 times.some(time => isSameMinute(hour, time)) &&
-                                "h-[4px] w-[.5px] bg-green-300",
+                                "h-[4px] w-[.5px] bg-red-400",
                                 !times.some(time => isSameMinute(hour, time)) &&
                                 "h-[4px] w-[1px] bg-gray-100"
                             )}

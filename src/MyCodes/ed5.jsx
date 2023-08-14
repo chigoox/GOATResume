@@ -1,9 +1,28 @@
 
-import { collection, doc, setDoc, getDocs, getDoc, updateDoc, arrayUnion, arrayRemove } from "firebase/firestore";
+import { collection, doc, setDoc, getDocs, getDoc, updateDoc, arrayUnion, arrayRemove, deleteField } from "firebase/firestore";
 import { DATABASE } from '../../Firebase'
 import React, { useEffect, useState } from 'react'
 import { getAuth, onAuthStateChanged } from "firebase/auth";
+import Toastify from 'toastify-js'
 
+
+export const notify = (notification, duration = 5000) => {
+    Toastify({
+        text: notification,
+        duration: duration,
+        className: "bg-red-900 border-gray-700 border bg-black-800",
+        // destination: "https://github.com/apvarun/toastify-js",
+        // newWindow: true,
+        close: true,
+        gravity: "top", // `top` or `bottom`
+        position: "left", // `left`, `center` or `right`
+        stopOnFocus: true, // Prevents dismissing of toast on hover
+        style: {
+            background: "linear-gradient(to right, black, #121212)",
+        },
+        onClick: function () { } // Callback after click
+    }).showToast();
+};
 
 
 export function handleInput5(key, value, stateSetter) {
@@ -37,7 +56,7 @@ export async function addToDatabase(collection, Doc, field, data) {
 
 export async function updateDatabaseItem(collection, Doc, Field, Value) {
     await updateDoc(doc(DATABASE, collection, Doc), {
-        [Field]: Value
+        [Field]: Value ? Value : deleteField()
     });
 }
 

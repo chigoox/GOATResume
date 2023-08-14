@@ -3,17 +3,18 @@ import { AiOutlineUpload } from 'react-icons/ai'
 import { STORAGE } from '../../../Firebase'
 import { getDownloadURL, ref, uploadBytesResumable } from 'firebase/storage'
 import { ClimbingBoxLoader } from 'react-spinners'
-const BlogCustomizer = ({ setPostMeta, blogTitle, ShowMetaMenu, toggleNewMeta }) => {
+const BlogCustomizer = ({ setPostMeta, blogTitle, ShowMetaMenu, toggleNewMeta, data }) => {
   const [saving, setSaving] = useState(false)
   const [postDATA, setPostDATA] = useState({})
   const output = document.getElementById('output')
   const defaultURL = 'https://plus.unsplash.com/premium_photo-1675804669860-9e27f22b0681?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1050&q=80'
+  console.log(data)
   if (postDATA.thumbnail) {
     output.src = URL.createObjectURL(postDATA.thumbnail)
   } else {
     setTimeout(() => {
       output.src = 'https://plus.unsplash.com/premium_photo-1675804669860-9e27f22b0681?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1050&q=80'
-    }, 1000);
+    }, 5000);
 
   }
   const captureData = ({ target }) => {
@@ -34,7 +35,7 @@ const BlogCustomizer = ({ setPostMeta, blogTitle, ShowMetaMenu, toggleNewMeta })
 
   const save = async () => {
     setSaving(true)
-    setPostMeta({ ...postDATA, tags: postDATA.tags ? postDATA.tags.split(' ') : '' })
+    setPostMeta({ ...postDATA, tags: postDATA.tags ? postDATA.tags.split(/[ ,]+/).filter(Boolean) : '' })
 
     const storageRef = ref(STORAGE, 'images/BlogThumbnails/' + blogTitle);
     if (postDATA.thumbnail) {
@@ -60,7 +61,7 @@ const BlogCustomizer = ({ setPostMeta, blogTitle, ShowMetaMenu, toggleNewMeta })
 
         />
       </div>}
-      <textarea autoFocus={true} onChange={captureData} placeholder='Tags' name="tags" id="" cols="30" rows="2" maxLength={72} className=' text-black p-2 hidescroll'></textarea>
+      <textarea autoFocus={true} defaultValue={data ? data.meta.tags?.toString() : ''} onChange={captureData} placeholder='Tags' name="tags" id="" cols="30" rows="2" maxLength={72} className=' text-black p-2 hidescroll'></textarea>
       <h1 className={'text-center'}>Background Color</h1>
       <input onChange={captureData} name={'bgColor'} type="color" className='w-full h-12 bg-gray-700 rounded-full' />
       <h1 className='text-center'>Text Color</h1>
@@ -71,7 +72,7 @@ const BlogCustomizer = ({ setPostMeta, blogTitle, ShowMetaMenu, toggleNewMeta })
         <AiOutlineUpload className='z-50' size={48} />
         <img className='w-full h-full object-cover absolute z-10' src="" alt="" id='output' />
       </label>
-      <button onClick={save} className='my-2 h-12 w-12 trans-slow hover:scale-105 hover:bg-gray-500 bg-gray-900 rounded-full shadow-black shadow hover:text-lime-400'>Save</button>
+      <button onClick={save} className='my-2 h-12 w-12 trans-slow hover:scale-105 hover:bg-gray-500 bg-gray-900 rounded-full shadow-black shadow hover:text-red-400'>Save</button>
     </div>
   )
 }

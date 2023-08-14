@@ -38,7 +38,7 @@ const Shop = ({ onPage }) => {
                     count={catCount}
                 />}
 
-            {(onPage == 'Products' || onPage == 'Merch') &&
+            {(onPage == 'Shop') &&
                 <div className='flex gap-24'>
                     <div hidden={isMobile} className='w-40 h-fit relative '>
                         {
@@ -48,7 +48,7 @@ const Shop = ({ onPage }) => {
 
 
                                     <div key={index} className='h-full w-64 mt-4 text-white '>
-                                        <h1 className='text-2xl font-bold border-lime-300 text-center'>{itemCat}</h1>
+                                        <h1 className='text-2xl font-bold border-red-300 text-center'>{itemCat}</h1>
                                         <div className='center flex-col'>
                                             {subCategories.map(itemSub => {
                                                 if (itemCat.match(/\d+/)[0] == itemSub.match(/\d+/)[0]) {
@@ -82,7 +82,7 @@ const Shop = ({ onPage }) => {
 
                                     <div key={index} className='h-fit w-full'>
                                         <div className='overflow-hidden h-16 relative my-2'>
-                                            <h1 className='StarbucksFont text-2xl font-bold my-8 border-b-2  border-green-400 md:w-[70%] w-[40%] absolute z-10 -top-4 t '>{itemCat}</h1>
+                                            <h1 className='StarbucksFont text-2xl font-bold my-8 border-b-2  border-red-400 md:w-[70%] w-[40%] absolute z-10 -top-4 t '>{itemCat}</h1>
                                             {/* <img className='h-full w-72 md:w-full object-cover' src={
                                             itemCat == 'Crystals1' ? 'https://images.unsplash.com/photo-1521133573892-e44906baee46?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=987&q=80'
                                                 : itemCat == 'Oils2' ? 'https://images.unsplash.com/photo-1626554873526-89b2c51ba12d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=987&q=80'

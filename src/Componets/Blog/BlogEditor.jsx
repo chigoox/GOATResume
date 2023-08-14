@@ -183,15 +183,17 @@ const BlogEditor = ({ toggleNewBlog, data }) => {
                     meta: postMeta,
                     title: inputValue,
                     date: format(Date.now(), 'MM-dd-yyyy'),
+                    postID: postID
+
 
                 })
-                for (let index = 0; index < postMeta.tags.length; index++) {
+                for (let index = 0; index < postMeta?.tags ? postMeta?.tags.length : 0; index++) {
                     updateArrayDatabaseItem('BlogPage', 'METADATA', 'postTags', postMeta.tags[index])
 
                 }
                 setTimeout(() => {
                     SetsavingBlog(false)
-                }, 2000);
+                }, 1000);
             } else {
                 titleInput.placeholder = 'Requires Title to save'
                 titleInput.classList.add('red')
@@ -210,11 +212,11 @@ const BlogEditor = ({ toggleNewBlog, data }) => {
     }
 
     return (
-        <div className='absolute hidescroll md:h-[45.5rem] w-full border border-lime-900 p-4  bg-black  -top-10 shadow-black shadow rounded-lg overflow-hidden overflow-y-scroll z-[99999]'>
+        <div className='absolute hidescroll md:h-[45.5rem] w-full border border-red-900 p-4  bg-black  -top-10 shadow-black shadow rounded-lg overflow-hidden overflow-y-scroll z-[99999]'>
             <BlogCustomizer setPostMeta={setPostMeta} blogTitle={blogTitle} ShowMetaMenu={ShowMetaMenu} toggleNewMeta={toggleNewMeta} />
             <div className='center absolute w-fit  z-50 my-4  md:gap-4 top-0 text-black '>
                 <button onClick={toggleNewBlog} className=' p-2 rounded-full'><AiOutlineClose color='red' size={32} /></button>
-                {blogTitle && <button onClick={saveBlogButton} className=' p-2 rounded-full'><AiFillSave color='lime' size={32} /></button>}
+                {blogTitle && <button onClick={saveBlogButton} className=' p-2 rounded-full'><AiFillSave color='red' size={32} /></button>}
 
 
 
@@ -244,7 +246,7 @@ const BlogEditor = ({ toggleNewBlog, data }) => {
                 <div id='editorjs' className='blog bg-white w-full  mx-auto relative rounded'></div>
             </div>
             <div className='center absolute w-fit  z-50 my-4 right-12  md:gap-4 top-0 text-black '>
-                <button onClick={toggleNewMeta} className=' p-2 rounded-full'><AiOutlineDatabase color='lime' size={32} /></button>
+                <button onClick={toggleNewMeta} className=' p-2 rounded-full'><AiOutlineDatabase color='red' size={32} /></button>
 
 
 

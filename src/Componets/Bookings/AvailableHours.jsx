@@ -4,14 +4,21 @@ import React, { memo, useState } from "react"
 import { cn } from "../../../lib/utils"
 
 // eslint-disable-next-line react/display-name
-const AvailableHours = memo(({ freeTimes }) => {
+const AvailableHours = memo(({ freeTimes, setBookingInfo }) => {
     const [selectedTime, setSelectedTime] = useState()
 
+    const bookTime = () => {
+        const fullDate = format(selectedTime, "MM-dd-yy hh:mm aaaaa'm'")
+        const date = format(selectedTime, "MM-dd-yy")
+        const time = format(selectedTime, "HH:mm")
+        setBookingInfo(old => ({ ...old, apointment: fullDate, date: date, time: time }))
+    }
+
     return (
-        <div className="flex border flex-col items-center gap-2 mt-4 p-4">
+        <div className="flex border flex-col items-center gap-2 mt-4 p-4 h-[30rem]">
             <span>
                 Available times:{" "}
-                <span className="font-semibold text-orange-950">
+                <span className="font-semibold text-red-500">
                     {freeTimes.length}
                 </span>
             </span>
@@ -21,17 +28,17 @@ const AvailableHours = memo(({ freeTimes }) => {
                         <button
                             type="button"
                             className={cn(
-                                "bg-gray-800 trans-slow rounded-lg px-2 text-lime-300 relative hover:border hover:border-gray-900 w-[64px] h-[64px]",
+                                "bg-gray-800 trans-slow rounded-lg px-2 text-red-300 relative hover:border hover:border-gray-900 w-[64px] h-[64px]",
                                 selectedTime &&
                                 isSameMinute(selectedTime, hour) &&
-                                "bg-lime-300 text-gray-800"
+                                "bg-red-300 text-gray-800"
                             )}
                             onClick={() => setSelectedTime(hour)}
                         >
                             <CheckCircle2
-                                color="lime"
+                                color="red"
                                 className={cn(
-                                    "w-[16px] h-[16px] absolute hidden top-0 right-0 transform translate-x-1 -translate-y-1.5 text-lime-700",
+                                    "w-[16px] h-[16px] absolute hidden top-0 right-0 transform translate-x-1 -translate-y-1.5 text-red-700",
                                     selectedTime && isSameMinute(selectedTime, hour) && "block"
                                 )}
                             />
@@ -42,10 +49,13 @@ const AvailableHours = memo(({ freeTimes }) => {
             </div>
             {selectedTime && (
                 <div className="w-full py-6">
-                    <span>Final selected reservation time is: </span>
-                    <span className="font-semibold text-rose-950 pl-1">
-                        {format(selectedTime, "dd MMMM yyyy HH:mm")}
+                    <span>reservation time is: </span>
+                    <span className="font-semibold text-rose-500 pl-1">
+                        {format(selectedTime, "MM-dd-yy hh:mm aaaaa'm'")}
                     </span>
+                    <div className="center w-full">
+                        <button onClick={bookTime} className="h-12 w-full bg-red-500">Select time</button>
+                    </div>
                 </div>
             )}
         </div>

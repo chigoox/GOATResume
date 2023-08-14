@@ -29,6 +29,8 @@ import {
 import { CheckCircle2, ChevronLeft, ChevronRight } from "lucide-react"
 import AvailableHours from "../../Componets/Bookings/AvailableHours"
 import TimesBar from '../../Componets/Bookings/TimesBar'
+import ReactDropdown from 'react-dropdown'
+import { AiOutlineArrowDown, AiOutlineArrowUp } from 'react-icons/ai'
 
 
 const reservations = [
@@ -37,16 +39,17 @@ const reservations = [
     addHours(startOfToday(), 7).toString(),
     addHours(startOfToday(), 8).toString(),
     addHours(startOfToday(), 9).toString(),
+    addHours(startOfToday(), 10).toString(),
     addDays(new Date(addHours(startOfToday(), 4)), 3).toString()
 ]
 
 
 
 const Bookings = ({ onPage }) => {
-
+    const [bookingInfo, setBookingInfo] = useState({})
     // display div of availables times
     const [calendarTouched, setCalendarTouched] = useState(false)
-
+    console.log(bookingInfo)
     // handle dates
     let today = startOfToday()
     let [currentMonth, setCurrentMonth] = useState(format(today, "MMM-yyyy"))
@@ -111,14 +114,14 @@ const Bookings = ({ onPage }) => {
             const StartOfToday = startOfDay(day)
             const endOfToday = endOfDay(day)
             // change your working hours here
-            const startHour = set(StartOfToday, { hours: 1 })
+            const startHour = set(StartOfToday, { hours: 5 })
             const endHour = set(endOfToday, { hours: 17, minutes: 45 })
             let hoursInDay = eachMinuteOfInterval(
                 {
                     start: startHour,
                     end: endHour
                 },
-                { step: 15 }
+                { step: 30 }
             )
             // filter the available hours
             let freeTimes = hoursInDay.filter(
@@ -131,15 +134,48 @@ const Bookings = ({ onPage }) => {
         setAvailableTimesInThisMonth(thisMonthTimesLength)
         setAvailableTimesInThisMonthForEachDay(thisMonthTimesEachDay)
     }, [currentMonth])
+    const bookingOptions = [
+        'Build a website for $250',
+        'Build an App for $500',
+        'Build a Game for $150',
+
+
+    ]
     return (
         <div className='z-0 relative'>
-            {onPage == 'Bookings' && <h1 className='text-5xl text-center mb-6'>Bookings</h1>}
+
+
+
+
             {onPage == 'Bookings' &&
-                <div className="flex flex-col md:flex-row min-h-screen  md:items-start  lg:justify-center   bg-black mb-10 md:mb-24">
+                <div className='center flex-col mb-40'>
+                    <h1 className='text-5xl text-center mb-6'>Bookings</h1>
+                    <h1>What can I do for you?</h1>
+                    <ReactDropdown
+                        className='w-96 bg-blue-800 h-12 text-white cursor-pointer '
+                        controlClassName='bg-red-500 p-2 h-12 w-full'
+                        arrowClassName=''
+                        menuClassName=' h-fit w-full center flex-col gap-4 overflow-hidden bg-black-800'
+                        arrowClosed={<AiOutlineArrowDown size={24} />}
+                        arrowOpen={<AiOutlineArrowUp size={24} />}
+                        options={bookingOptions} onChange={(e) => { setBookingInfo(old => ({ ...old, book: e.value })) }}
+                        value={''}
+                        placeholder="Select an option"
+                        placeholderClassName='text-black text-3xl text-center' />
+
+
+                </div>}
+            {bookingInfo.book &&
+                <div>
+                    <h1 className='text-center'>When would you like to meet?</h1>
+                    <h1 className='text-center text-sm mb-20'>(To talk about website details)</h1>
+                </div>}
+            {
+                <div className={`${bookingInfo.book ? 'opacity-100' : 'opacity-0'} trans flex flex-col  md:flex-row   md:items-start  lg:justify-center    bg-black mb-10 md:mb-24`}>
 
 
                     {/* calendar implementation */}
-                    <div className="flex  flex-col gap-2 h-[450px] w-[380px] md:h-fit md:w-fit  m-auto my-0">
+                    <div className="flex flex-col gap-2 h-[450px] w-[380px] md:h-fit md:w-fit mb-32  m-auto my-0">
                         {/* calendar header */}
                         <div className="grid grid-cols-3 md:w-[40rem] px-8">
                             <button
@@ -150,13 +186,13 @@ const Bookings = ({ onPage }) => {
                                 <ChevronLeft
                                     size={20}
                                     aria-hidden="true"
-                                    color='lime'
+                                    color='red'
                                     className={cn(
-                                        isThisMonth(new Date(currentMonth)) && "text-lime-400"
+                                        isThisMonth(new Date(currentMonth)) && "text-red-400"
                                     )}
                                 />
                             </button>
-                            <h2 className="font-semibold text-lime-300 justify-center flex text-center">
+                            <h2 className="font-semibold text-rose-500 justify-center flex text-center">
                                 {format(firstDayCurrentMonth, " MMMM yyyy")}
                             </h2>
                             <button
@@ -164,7 +200,7 @@ const Bookings = ({ onPage }) => {
                                 className="flex justify-end"
                                 onClick={nextMonth}
                             >
-                                <ChevronRight size={20} aria-hidden="true" color='lime' />
+                                <ChevronRight size={20} aria-hidden="true" color='red' />
                             </button>
                         </div>
 
@@ -176,9 +212,9 @@ const Bookings = ({ onPage }) => {
                                         <div
                                             key={i}
                                             className={cn(
-                                                "flex justify-center items-center text-sm text-lime-300 w-full py-2",
+                                                "flex justify-center items-center text-sm text-red-300 w-full py-2",
                                                 {
-                                                    "text-lime-600 ":
+                                                    "text-red-600 ":
                                                         day === "Sun" || day === "Sat"
                                                 }
                                             )}
@@ -209,19 +245,19 @@ const Bookings = ({ onPage }) => {
                                                 className={cn(
                                                     "w-12 h-12 md:h-24 md:w-24 flex flex-col p-2 justify-center items-center rounded-xl gap-0 group bg-gray-900 relative group",
                                                     isEqual(day, selectedDay) &&
-                                                    "bg-lime-200 text-lime-700 text-lg",
-                                                    isEqual(today, day) && "text-blue-900 bg-green-400",
+                                                    "bg-rose-600 text-red-900 text-lg",
+                                                    isEqual(today, day) && "text-blue-900 bg-red-700",
                                                     isBefore(day, today) &&
                                                     "text-red-800 bg-gray-700 cursor-not-allowed",
-                                                    isEqual(today, day) && "text-blue-900 bg-lime-100",
+                                                    isEqual(today, day) && "text-white bg-rose-500",
                                                     isBefore(day, today) && "cursor-not-allowed",
                                                     isEqual(day, selectedDay) &&
                                                     isToday(day) &&
-                                                    "bg-lime-300",
+                                                    "bg-red-700",
                                                     !isEqual(day, selectedDay) &&
                                                     !isToday(day) &&
                                                     !isSameMonth(day, firstDayCurrentMonth) &&
-                                                    "text-lime-300",
+                                                    "text-red-300",
                                                     !isEqual(day, selectedDay) &&
                                                     !isToday(day) &&
                                                     isSameMonth(day, firstDayCurrentMonth) &&
@@ -251,7 +287,7 @@ const Bookings = ({ onPage }) => {
                                                     className={cn(
                                                         "hidden",
                                                         isEqual(day, selectedDay) &&
-                                                        "absolute block top-0 right-0 h-[18px] w-[18px] translate-x-1 -translate-y-1 text-lime-600",
+                                                        "absolute block top-0 right-0 h-[18px] w-[18px] translate-x-1 -translate-y-1 text-red-600",
                                                         isEqual(day, today) && "text-orange-400"
                                                     )}
                                                 />
@@ -273,17 +309,22 @@ const Bookings = ({ onPage }) => {
                         <span className="flex items-center w-full justify-center gap-1">
                             <span>
                                 <h1 className='text-center'>Select reservation time</h1>
-                                <h1 className="text-center text-lime-400 font-semibold pl-1">
+                                <h1 className="text-center text-red-400 font-semibold pl-1">
                                     {format(selectedDay, "dd MMMM yyyy").toString()}
                                 </h1>
                             </span>
                         </span>
 
-                        <AvailableHours freeTimes={freeTimes} />
+                        <AvailableHours freeTimes={freeTimes} setBookingInfo={setBookingInfo} />
                     </div>
                 </div>
 
             }
+            {bookingInfo.apointment && <div className=' mb-96  center flex-col text-white p-2'>
+                <h1 className='text-2xl text-center'>{`You want to ${bookingInfo.book}, and meet on ${bookingInfo.apointment}`}</h1>
+                <h1 className='text-center text-red-500'>pay $50 depoit to comfirm booking</h1>
+                <button className='h-12 w-32 bg-red-500'>Book Now</button>
+            </div>}
 
         </div>
     )
