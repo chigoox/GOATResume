@@ -165,10 +165,9 @@ const UserManager = ({ loggedInUser, setLoggedInUser }) => {
         )
     }
 
-    console.log(loggedInUser)
 
     return (
-        <div className='text-red-600 absolute right-0 top-2 center flex-col overflow-hidden  '>
+        <div className='text-red-600 absolute right-0 top-3 center flex-col overflow-hidden  '>
             <button onClick={toggleAccountPanel}>
                 <BsPersonFill color={'white'} size={24} />
             </button>

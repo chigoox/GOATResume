@@ -26,7 +26,7 @@ function App() {
   return (
     <div className="App w-full bg-red-500 h-96 scroll-able ">
       <div className='h-12 bg-black center gap-2 w-full z-[999] fixed'>
-        <a className='center gap-1' href="./">
+        <a className='center gap-1 relative right-28 md:right-0' href="./">
           <h1 className='font-bold text-lg text-white flex items-center h-full'>Void</h1>
           <img className='h-10 rounded-full  border-red-500' src={LOGO} alt="" />
           <h1 className='font-bold text-lg text-white flex items-center h-full'>Apps</h1>
