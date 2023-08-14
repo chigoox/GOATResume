@@ -188,8 +188,8 @@ const Bookings = ({ onPage }) => {
                     <h1 className='text-center'>When would you like to meet?</h1>
                     <h1 className='text-center text-sm mb-20'>(To talk about website details)</h1>
                 </div>}
-            {
-                <div className={`${bookingInfo.book ? 'opacity-100' : 'opacity-0'} trans flex flex-col  md:flex-row   md:items-start  lg:justify-center    bg-black mb-10 md:mb-24`}>
+            {onPage == 'Bookings' &&
+                <div className={`${bookingInfo.book ? 'opacity-100' : 'opacity-0 z-0'} trans flex flex-col  md:flex-row   md:items-start  lg:justify-center    bg-black mb-10 md:mb-24`}>
 
 
                     {/* calendar implementation */}

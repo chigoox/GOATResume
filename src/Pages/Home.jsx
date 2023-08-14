@@ -10,6 +10,7 @@ import HERO from '../assets/httpHero.jpg'
 import Bookings from './SubPages/Bookings'
 import Blog from './SubPages/Blog'
 import Portfolio from './SubPages/Portfolio'
+import CodingClass from './SubPages/CodingClass'
 
 function Home() {
     const tabs = ['Coding Class', 'Bookings', 'Shop', 'Blog', 'Portfolio']
@@ -20,7 +21,7 @@ function Home() {
         setSelectedTab({ [tabName]: true })
     }
 
-
+    console.log(onPage)
     const toPortfolio = () => {
         setOnPage('Portfolio')
         disableScroll(true)
@@ -44,8 +45,9 @@ function Home() {
                                 {(item == 'Shop') ? <Shop onPage={onPage} /> :
                                     item == 'Bookings' ? <Bookings onPage={onPage} /> :
                                         item == 'Blog' ? <Blog onPage={onPage} /> :
-                                            item = 'Portfolio' ? <Portfolio onPage={onPage} /> :
-                                                <div>{(item == onPage) ? item : ''}</div>
+                                            item == 'Portfolio' ? <Portfolio onPage={onPage} /> :
+                                                item == 'Coding Class' ? <CodingClass onPage={onPage} /> :
+                                                    <div>{(item == onPage) ? item : ''}</div>
 
                                 }
                             </div>

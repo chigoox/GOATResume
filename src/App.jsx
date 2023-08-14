@@ -16,15 +16,11 @@ function App() {
     // Check to see if this is a redirect back from Checkout
     const query = new URLSearchParams(window.location.search);
 
-    if (query.get("successBook")) {
-      notify("Order placed! You will receive an email confirmation.");
-    }
+    if (query.get("successBook")) notify("Appointment Booked");
+    if (query.get("success")) notify("Order placed");
+    if (query.get("canceledBook")) notify("Booking Canceled");
+    if (query.get("canceled")) notify("Order Canceled");
 
-    if (query.get("canceledBook")) {
-      notify(
-        "Order canceled -- continue to shop around and checkout when you're ready."
-      );
-    }
   }, []);
 
   return (
