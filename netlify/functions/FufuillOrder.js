@@ -34,6 +34,7 @@ exports.handler = async ({ body, headers }) => {
       };
       await sgMail.send(msg);
     } */
+    console.log('ran')
 
     return {
       statusCode: 200,
