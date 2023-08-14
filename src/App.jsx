@@ -5,12 +5,27 @@ import Home from './Pages/Home';
 import Footer from './Componets/Footers/Footer';
 import LOGO from './assets/httpLOGO.png'
 import UserManager from './Componets/Header/UserManager';
+import { notify } from './MyCodes/ed5';
 
 
 export const UserContext = createContext()
 
 function App() {
   const [loggedInUser, setLoggedInUser] = useState({})
+  useEffect(() => {
+    // Check to see if this is a redirect back from Checkout
+    const query = new URLSearchParams(window.location.search);
+
+    if (query.get("successBook")) {
+      notify("Order placed! You will receive an email confirmation.");
+    }
+
+    if (query.get("canceledBook")) {
+      notify(
+        "Order canceled -- continue to shop around and checkout when you're ready."
+      );
+    }
+  }, []);
 
   return (
     <div className="App w-full bg-red-500 h-96 scroll-able ">
