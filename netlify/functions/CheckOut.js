@@ -20,8 +20,8 @@ export const handler = async (req, res) => {
   const session = await stripe.checkout.sessions.create({
     line_items: cart,
     mode: 'payment',
-    success_url: `https://humainegrandeur.netlify.app/Shop?success=true`,
-    cancel_url: `https://humainegrandeur.netlify.app/Shop?canceled=true`,
+    success_url: `https://voidappx.netlify.app/Shop?success=true`,
+    cancel_url: `https://voidappx.netlify.app/Shop?canceled=true`,
   });
   return {
     statusCode: 200,

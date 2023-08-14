@@ -9,6 +9,54 @@ const Shop = ({ onPage }) => {
     const [catCount, setCatCount] = useState(3)
     const ItemCount = getRand(12)
     const [openSubCategory, setOpenSubCategory] = useState(false)
+
+    const [PRODUCTDATA, SETPRODUCTDATA] = useState()
+
+
+
+
+    async function fetchProuductsFromStripe() {
+        fetch('/.netlify/functions/FetchProducts', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+        }).then(res => {
+            res.json().then(res => {
+                const { products } = res
+                SETPRODUCTDATA(products)
+            })
+        })
+    }
+
+    console.log(PRODUCTDATA)
+
+
+    const checkOut = async (price) => {
+        const STRIPE_CART = { quantity: 1, price: price }
+
+        fetch('/.netlify/functions/CheckOut', {
+            method: 'POST',
+            redirect: 'follow',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                cart: STRIPE_CART
+            })
+        }).then(res => {
+            res.json().then(res => {
+
+                window.location.href = res.url
+
+            })
+        })
+    }
+
+    useEffect(() => {
+        const fetch = async () => { await fetchProuductsFromStripe() }
+        fetch().then(
+
+        )
+    }, [])
+
+
     const toggleSubCategory = () => {
         setOpenSubCategory(!openSubCategory)
     }
@@ -29,6 +77,9 @@ const Shop = ({ onPage }) => {
     }, []);
 
     const isMobile = width <= 1023;
+
+
+
     return (
         <div className=' overflow-x-hidden p-4 z-[999] absolute w-full hidescroll '>
 
