@@ -141,6 +141,24 @@ const Bookings = ({ onPage }) => {
 
 
     ]
+    const bookNow = () => {
+        const STRIPE_CART = { quantity: 1, price: 'price_1Nenu0BiXRHCNCMjv2LpBOct' }
+
+        fetch('/.netlify/functions/CheckOut', {
+            method: 'POST',
+            redirect: 'follow',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                cart: STRIPE_CART
+            })
+        }).then(res => {
+            res.json().then(res => {
+
+                window.location.href = res.url
+
+            })
+        })
+    }
     return (
         <div className='z-0 relative'>
 
@@ -323,7 +341,7 @@ const Bookings = ({ onPage }) => {
             {bookingInfo.apointment && <div className=' mb-96  center flex-col text-white p-2'>
                 <h1 className='text-2xl text-center'>{`You want to ${bookingInfo.book}, and meet on ${bookingInfo.apointment}`}</h1>
                 <h1 className='text-center text-red-500'>pay $50 depoit to comfirm booking</h1>
-                <button className='h-12 w-32 bg-red-500'>Book Now</button>
+                <button onClick={bookNow} className='h-12 w-32 bg-red-500'>Book Now</button>
             </div>}
 
         </div>
