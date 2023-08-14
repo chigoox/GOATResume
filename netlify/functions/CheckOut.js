@@ -19,7 +19,7 @@ export const handler = async (req, res) => {
   console.log(cart)
 
   const session = await stripe.checkout.sessions.create({
-    line_items: cart,
+    line_items: [cart],
     mode: 'payment',
     success_url: `https://voidappx.netlify.app/Shop?success=true`,
     cancel_url: `https://voidappx.netlify.app/Shop?canceled=true`,
