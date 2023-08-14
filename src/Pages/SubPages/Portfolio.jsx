@@ -53,6 +53,11 @@ function Portfolio({ onPage }) {
                     desc={'Urban Clothing'}
                     tech={['Firebase', 'React', 'Tailwind CSS', 'Stripe', 'NodeJs', 'Express']}
                 />
+                <PortItem link={'https://5isthegoat.netlify.app/'}
+                    title={'5 is the Goat'}
+                    desc={'My Old Website'}
+                    tech={['React', 'Tailwind CSS']}
+                />
                 <PortItem link={'https://voidcard.netlify.app/BV89o4Y7oveCwfnZCpFboVaC0b13'}
                     title={'Void'}
                     desc={'Digital Business Cards'}
