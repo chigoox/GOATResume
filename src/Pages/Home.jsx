@@ -134,6 +134,10 @@ function Home() {
                 <img className='object-cover h-full w-full' src="https://images.unsplash.com/photo-1691531315982-f6bccf4bd875?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=987&q=80" alt="" />
             </div>
 
+            <div className='h-96 w-96 bg-rose-900'>
+
+            </div>
+
         </div>
     )
 }

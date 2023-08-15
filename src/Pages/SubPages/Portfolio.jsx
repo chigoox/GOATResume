@@ -43,11 +43,6 @@ function Portfolio({ onPage }) {
     return (
         <div className='bg-black h-full w-full relative overflow-y-scroll mb-40'>
             {onPage == 'Portfolio' && <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 md:mt-12 md:justify-around md:p-12  m-auto md:scale-100 grid-flow-row w-full h-fit gap-12 md:gap-6">
-                <PortItem link={'https://higherbeingset.netlify.app'}
-                    title={'Higher Beigns E.T'}
-                    desc={'Spiritual Website'}
-                    tech={['React', 'Tailwind CSS', 'Stripe', 'FireBase', 'Serverless Functions']}
-                />
                 <PortItem link={'https://humainegrandeur.netlify.app/'}
                     title={'Humaine Grandeur'}
                     desc={'Urban Clothing'}
