@@ -58,6 +58,11 @@ function Portfolio({ onPage }) {
                     desc={'Digital Business Cards'}
                     tech={['React', 'Tailwind CSS', 'CommerceJS', 'Firebase']}
                 />
+                <PortItem link={'https://indimassage.netlify.app'}
+                    title={'iNDY Massage'}
+                    desc={'Massage booking'}
+                    tech={['React', 'Tailwind CSS', 'Stripe', 'Serverless Functions']}
+                />
                 <PortItem link={'https://tribalart.netlify.app'}
                     title={'Tribal Art'}
                     desc={'Artist Portfolio and shop'}
