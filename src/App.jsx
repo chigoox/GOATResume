@@ -6,12 +6,17 @@ import Footer from './Componets/Footers/Footer';
 import LOGO from './assets/httpLOGO.png'
 import UserManager from './Componets/Header/UserManager';
 import { notify } from './MyCodes/ed5';
+import Terms from './Pages/SubPages/Terms';
 
 
 export const UserContext = createContext()
 
 function App() {
   const [loggedInUser, setLoggedInUser] = useState({})
+  const [showTerms, setShowTerms] = useState(false)
+  const toggleTerms = () => {
+    setShowTerms(!showTerms)
+  }
   useEffect(() => {
     // Check to see if this is a redirect back from Checkout
     const query = new URLSearchParams(window.location.search);
@@ -32,10 +37,11 @@ function App() {
           <h1 className='font-bold text-lg text-white flex items-center h-full'>Apps</h1>
         </a>
 
-        <UserManager loggedInUser={loggedInUser} setLoggedInUser={setLoggedInUser} />
+        <UserManager loggedInUser={loggedInUser} setLoggedInUser={setLoggedInUser} toggleTerms={toggleTerms} />
       </div>
       {/* PAGES */}
       <UserContext.Provider value={loggedInUser}>
+        {showTerms && <Terms toggleTerms={toggleTerms} />}
         <Home />
       </UserContext.Provider>
       {/* Footer */}

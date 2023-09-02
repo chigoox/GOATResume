@@ -1,9 +1,10 @@
 
 import { collection, doc, setDoc, getDocs, getDoc, updateDoc, arrayUnion, arrayRemove, deleteField } from "firebase/firestore";
-import { DATABASE } from '../../Firebase'
+import { DATABASE, STORAGE } from '../../Firebase'
 import React, { useEffect, useState } from 'react'
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import Toastify from 'toastify-js'
+import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
 
 
 export const notify = (notification, duration = 5000) => {
@@ -31,11 +32,9 @@ export const isDev = () => {
         return false
     }
 }
-export function handleInput5(key, value, stateSetter) {
-    //const key = target.name
-    // const value = target.value
-
-
+export function handleInput5(event, stateSetter) {
+    const key = event.target.name
+    const value = event.target.value
     try {
         stateSetter((old) => {
             return { ...old, [key]: value }
@@ -97,6 +96,20 @@ async function fetchDocument(collection, document, setterfunction) {
         // doc.data() will be undefined in this case
         console.log("No such document!");
     }
+}
+
+export async function uploadByFile(file, contentType = 'image/*', location = 'images/Terms/') {
+    const storageRef = ref(STORAGE, location + file.name);
+    var metadata = {
+        contentType: contentType
+    };
+    var uploadTask = await uploadBytesResumable(storageRef, file);
+    const downloadURL = await getDownloadURL(uploadTask.ref).then((downloadURL) => {
+        return downloadURL
+    })
+    return downloadURL
+
+
 }
 
 

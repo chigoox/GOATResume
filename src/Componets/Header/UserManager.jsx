@@ -1,11 +1,11 @@
 import React, { useState } from 'react'
-import { BsApple, BsFacebook, BsGoogle, BsKeyFill, BsMailbox, BsMailbox2, BsPersonFill, BsPhone } from "react-icons/bs";
+import { BsApple, BsFacebook, BsGoogle, BsKeyFill, BsMailbox, BsMailbox2, BsPersonFill, BsPhone, BsSignDeadEndFill } from "react-icons/bs";
 import { getAuth, signInWithPopup, GoogleAuthProvider, createUserWithEmailAndPassword, sendPasswordResetEmail, signInWithEmailAndPassword, sendEmailVerification, signOut } from "firebase/auth";
-import { AiFillCloseCircle, AiFillCloseSquare } from 'react-icons/ai';
+import { AiFillCloseCircle, AiFillCloseSquare, AiFillFileText } from 'react-icons/ai';
 import { Mail, MailIcon } from 'lucide-react';
 import { notify } from '../../MyCodes/ed5';
 
-const UserManager = ({ loggedInUser, setLoggedInUser }) => {
+const UserManager = ({ loggedInUser, setLoggedInUser, toggleTerms }) => {
 
 
     const [showAccountPanel, setShowAccountPanel] = useState(false)
@@ -168,9 +168,14 @@ const UserManager = ({ loggedInUser, setLoggedInUser }) => {
 
     return (
         <div className='text-red-600 absolute right-0 top-2 center flex-col overflow-hidden  '>
-            <button className='relative top-1 md:top-0 left-20 md:left-0' onClick={toggleAccountPanel}>
-                <BsPersonFill color={'white'} size={24} />
-            </button>
+            <div className='flex'>
+                <button className='relative top-1 md:top-0 left-20 md:left-0' onClick={toggleAccountPanel}>
+                    <BsPersonFill color={'white'} size={24} />
+                </button>
+                <button className='relative top-1 md:top-0 left-20 md:left-0' onClick={toggleTerms}>
+                    <AiFillFileText color={'white'} size={24} />
+                </button>
+            </div>
             <RegisterMenu setShowRegister={setShowRegister} setLoggedInUser={setLoggedInUser} />
             {loggedInUser?.uid && <UserMenu loggedInUser={loggedInUser} setLoggedInUser={setLoggedInUser} />}
             <div className={`${showAccountPanel ? 'h-[26rem]' : 'h-0'} trans overflow-hidden w-72 bg-black-900 mt-4 flex-col center gap-2 rounded-b-xl`}>
