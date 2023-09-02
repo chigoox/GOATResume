@@ -168,7 +168,7 @@ const UserManager = ({ loggedInUser, setLoggedInUser, toggleTerms }) => {
 
     return (
         <div className='text-red-600 absolute right-0 top-2 center flex-col overflow-hidden  '>
-            <div className='flex'>
+            <div className='flex gap-8'>
                 <button className='relative top-1 md:top-0 left-20 md:left-0' onClick={toggleAccountPanel}>
                     <BsPersonFill color={'white'} size={24} />
                 </button>
