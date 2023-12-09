@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { AiFillCamera, AiFillCloseCircle } from 'react-icons/ai'
 import TermSource from './TermSource'
-import { addToDatabase, handleInput5, uploadByFile } from '../../MyCodes/ed5'
+import { addToDatabase, handleInput5, notify, uploadByFile } from '../../MyCodes/ed5'
 import { format, startOfToday } from 'date-fns'
 import Loading from '../../Componets/Loading'
 
@@ -44,6 +44,8 @@ function Terms({ toggleTerms }) {
                 setLoading(false)
                 toggleTerms()
                 return
+            } else {
+                //  notify('Fill Form')
             }
 
         } catch (error) {
