@@ -8,9 +8,10 @@ const month = today.getMonth() + 1; // Months are zero-based, so add 1 to get th
 const day = today.getDate();
 
 
-function TermSource({ cName, fName, addr, title }) {
+
+function TermSource({ cName, fName, addr, title, projectTotal, projectDeposit, projectInstallments }) {
     return (
-        <div className="c3 doc-content overflow-y-scroll hidescroll">
+        <div className="c3 doc-content overflow-y-scroll hidescroll w-full">
             <p className="c2"><span className="c0">Website Development Contract</span></p>
             <p className="c1"><span className="c0"></span></p>
             <p className="c2">
@@ -104,23 +105,23 @@ function TermSource({ cName, fName, addr, title }) {
             <p className="c2">
                 <span className="c0">2.1 The total cost of the website development
                     project as per the
-                    Project Scope is set at {'$' + 250}. The payment terms
+                    Project Scope is set at {'$' + projectTotal}. The payment terms
                     are as
                     follows:</span>
             </p>
             <p className="c1"><span className="c0"></span></p>
             <p className="c2">
-                <span className="c0">A non-refundable deposit of {'$' + 250} (USD) is due upon
+                <span className="c0">A non-refundable deposit of {'$' + projectDeposit} (USD) is due upon
                     signing this
                     Contract and is payable within {5} days of the Effective
                     Date.</span>
             </p>
             <p className="c2">
-                <span className="c0">Monthly installments of {'$' + 250} (USD) shall be due on
+                <span className="c0">Monthly installments of {'$' + projectInstallments} (USD) shall be due on
                     the 1st day
                     of each subsequent month, starting from day of
                     signing until
-                    the total payment amount is reached.</span>
+                    the total payment amount is reached. *only if a payment plan is agreed upon* </span>
             </p>
             <p className="c2">
                 <span className="c0">All payments shall be made in United States Dollars
